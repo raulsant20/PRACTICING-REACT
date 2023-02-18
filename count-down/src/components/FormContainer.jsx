@@ -8,7 +8,6 @@ export function FormContainer() {
     e.preventDefault();
     const number = e.target.number.value;
     setStart(number);
-    console.log("start in: ", number);
   };
 
   return (

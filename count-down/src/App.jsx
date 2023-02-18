@@ -1,14 +1,10 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import "./App.css";
-import { CountDown } from "./components/CountDown";
 import { FormContainer } from "./components/FormContainer";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      {/* <FormContainer /> */}
-      <CountDown />
+      <FormContainer />
     </div>
   );
 }

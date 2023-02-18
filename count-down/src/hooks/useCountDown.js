@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 const useCountDown = (start) => {
   const [count, setCount] = useState(start);
 
-  console.log("using useCount");
-
   useEffect(() => {
     const interval = setTimeout(() => {
       setCount((prev) => {
