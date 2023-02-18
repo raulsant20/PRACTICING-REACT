@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 
-const useCountDown = () => {
-  const [count, setCount] = useState(Math.floor(Math.random() * 5) + 1);
+const useCountDown = (start) => {
+  const [count, setCount] = useState(start);
+
+  console.log("using useCount");
 
   useEffect(() => {
     const interval = setTimeout(() => {
@@ -13,9 +15,13 @@ const useCountDown = () => {
         return prev - 1;
       });
     }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
   }, [count]);
 
-  return count;
+  return [count, setCount];
 };
 
 export default useCountDown;
