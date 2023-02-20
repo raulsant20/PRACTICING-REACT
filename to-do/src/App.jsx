@@ -3,51 +3,138 @@ import "./App.css";
 
 function App() {
   const [input, setInput] = "";
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([
+    /*
+    {
+      id: 1,
+      name: "Task 1",
+      done: false,
+    },
+    {
+      id: 2,
+      name: "Task 2",
+      done: false,
+    },
+    {
+      id: 3,
+      name: "Task 3",
+      done: false,
+    },*/
+  ]);
 
-  const creatingTask = (value) => {
-    const handleDelete = (e) => {
-      console.log("handleDelete");
-      console.log(e);
+  const createNewTask = (name) => {
+    const lastTask = tasks[tasks.length - 1];
+    const newId = lastTask ? lastTask.id + 1 : 1;
+    const newTask = {
+      id: newId,
+      name: name,
+      done: false,
+    };
+    // console.log(newTask);
+    setTasks([...tasks, newTask]);
+  };
+
+  const Input = () => {
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      const name = e.target.name;
+      createNewTask(name.value);
+      name.value = "";
     };
 
     return (
-      <div className="item">
-        <input type="checkbox" name="" id="" />
-        <p>{value}</p>
-        <button type="button" onClick={handleDelete}>
-          Setting
-        </button>
-        <button type="button">Delete</button>
+      <div>
+        To-Do App <br />
+        <form onSubmit={handleSubmit}>
+          <label>
+            <input type="text" name="name" defaultValue={""} />
+          </label>
+          <input type="submit" value="Agregar" />
+        </form>
       </div>
     );
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const target = e.target;
-    const name = target.task;
-    let value = name.value;
-    const task = creatingTask(value);
-    console.log(task);
-    setTasks([...tasks, task]);
-    name.value = "";
+  const handleDelete = (id) => {
+    console.log(id);
+    console.log("deleting", tasks);
+
+    // const updatedTasks = [...tasks];
+    // updatedTasks.filter((task) => task.id !== id);
+    // console.log(updatedTasks);
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
+
+  const handleCheck = (id) => {
+    console.log("checking", id);
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === id) {
+        console.log(task, id);
+        return { ...task, done: !task.done };
+      }
+      return task;
+    });
+
+    setTasks(updatedTasks);
+
+    console.log(updatedTasks);
+  };
+
+  const Item = ({ task, handleDelete }) => {
+    // console.log(task);
+    const id = task.id;
+    // console.log(id);
+    return (
+      <div className="item">
+        <div>
+          <input
+            type="checkbox"
+            name="done"
+            checked={task.done}
+            onChange={() => {
+              handleCheck(id);
+            }}
+          />
+          {task.done ? <del>{task.name}</del> : task.name}
+        </div>
+        <button onClick={() => handleDelete(id)}>Delete</button>
+      </div>
+    );
+  };
+
+  const ToDoList = ({ tasks }) => {
+    return (
+      <div>
+        Lista de items
+        {/* {console.log(tasks)} */}
+        {tasks.map((task) => (
+          <Item key={task.id} task={task} handleDelete={handleDelete} />
+        ))}
+      </div>
+    );
+  };
+
+  const ToDoItems = () => {
+    return (
+      <div>
+        {/* {console.log(tasks)} */}
+        {/* {tasks.map((task) => (
+          <div key={task.id}>{task.name}</div>
+        ))} */}
+        <ToDoList tasks={tasks} />
+      </div>
+    );
+  };
+
+  const Footer = () => {
+    return <div>Footer</div>;
   };
 
   return (
     <div className="App">
-      <div className="container">
-        <form onSubmit={handleSubmit}>
-          <label>
-            <input type="text" name="task" defaultValue={""} />
-          </label>
-          <input type="submit" value="Agregar" />
-        </form>
-        {tasks.map((task) => task)}
-        <div className="footer">
-          <p>Total: {tasks.length}</p>
-        </div>
-      </div>
+      <Input />
+      <ToDoItems />
+      <Footer />
     </div>
   );
 }

@@ -42,9 +42,10 @@
 }
 
 .item {
-  width: 80vw;
+  width: 60vw;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .container {
