@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
-
+import Input from "./components/Input";
+import ToDoList from "./components/ToDoList";
 function App() {
   const [tasks, setTasks] = useState([]);
 
@@ -13,28 +14,6 @@ function App() {
       done: false,
     };
     setTasks((prev) => [...prev, newTask]);
-  };
-
-  const Input = () => {
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      const name = e.target.name;
-      const value = name.value;
-      createNewTask(value);
-      name.value = "";
-    };
-
-    return (
-      <div>
-        To-Do App <br />
-        <form onSubmit={handleSubmit}>
-          <label>
-            <input type="text" name="name" defaultValue={""} autoFocus />
-          </label>
-          <input type="submit" value="Agregar" />
-        </form>
-      </div>
-    );
   };
 
   const handleDelete = (id) => {
@@ -52,46 +31,19 @@ function App() {
     );
   };
 
-  const Item = ({ task, handleDelete }) => {
-    const id = task.id;
-    return (
-      <div className="item">
-        <div>
-          <input
-            type="checkbox"
-            name="done"
-            checked={task.done}
-            onChange={() => {
-              handleCheck(id);
-            }}
-          />
-          {task.done ? <del>{task.name}</del> : task.name}
-        </div>
-        <button type="button" onClick={() => handleDelete(id)}>
-          Delete
-        </button>
-      </div>
-    );
-  };
-
-  const ToDoList = () => {
-    return (
-      <div>
-        {tasks.map((task) => (
-          <Item key={task.id} task={task} handleDelete={handleDelete} />
-        ))}
-      </div>
-    );
-  };
-
   const Footer = () => {
     return <div>Footer</div>;
   };
 
   return (
     <div className="App">
-      <Input />
-      <ToDoList />
+      <Input createNewTask={createNewTask} />
+      {console.log(tasks)}
+      <ToDoList
+        tasks={tasks}
+        handleDelete={handleDelete}
+        handleCheck={handleCheck}
+      />
       <Footer />
     </div>
   );
