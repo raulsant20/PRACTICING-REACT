@@ -1,0 +1,21 @@
+.background {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* backdrop-filter: blur(10px); */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  backdrop-filter: blur(2px);
+}
+
+.container {
+  border: 2px solid white;
+  width: 50vw;
+  background-color: rgb(47, 67, 59);
+}
