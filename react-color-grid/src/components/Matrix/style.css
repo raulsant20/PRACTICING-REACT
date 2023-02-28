@@ -1,0 +1,29 @@
+.cel {
+  width: 20px;
+  height: 20px;
+  background-color: #000;
+  border: 2px solid rgb(62, 57, 57);
+}
+
+.table__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.black {
+  background-color: #000;
+}
+
+.green {
+  background-color: #0f0;
+}
+
+.blue {
+  background-color: #00f;
+}
+
+.none {
+  background-color: transparent;
+}
